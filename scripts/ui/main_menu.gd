@@ -1,3 +1,6 @@
+## 主菜单场景逻辑
+## 负责：保证根 Control 不拦截点击（mouse_filter = IGNORE）、开始游戏/退出按钮回调。
+
 extends Control
 
 const LEVEL1_PATH := "res://scenes/levels/Level1.tscn"
@@ -14,6 +17,7 @@ func _ready() -> void:
 	if quit_btn:
 		quit_btn.pressed.connect(_on_quit_pressed)
 
+## 开始游戏：优先通过 GameManager 切关，否则直接 change_scene_to_file 第一关
 func _on_start_pressed() -> void:
 	var gm = get_node_or_null("/root/GameManager")
 	if gm and gm.has_method("change_level"):
@@ -21,6 +25,6 @@ func _on_start_pressed() -> void:
 	else:
 		get_tree().change_scene_to_file(LEVEL1_PATH)
 
+## 退出游戏
 func _on_quit_pressed() -> void:
 	get_tree().quit()
-

@@ -1,3 +1,7 @@
+## 游戏内 HUD（生命/金币/分数 + 暂停菜单）
+## 由 GameManager 延迟挂到根节点，用路径取子节点避免延迟添加时 % 为 null；
+## 订阅 GameManager 的 lives/coins/score 信号并刷新 Label；Esc 切换暂停，暂停菜单提供继续/主菜单。
+
 extends CanvasLayer
 
 var lives_label: Label
@@ -24,7 +28,7 @@ func _ready() -> void:
 	if main_menu_button:
 		main_menu_button.pressed.connect(_on_main_menu_pressed)
 
-	# 连接 GameManager 信号（Autoload 节点）
+	# 连接 GameManager 信号并初始化显示
 	var gm = get_node_or_null("/root/GameManager")
 	if gm:
 		gm.lives_changed.connect(_on_lives_changed)
@@ -38,6 +42,7 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		_toggle_pause()
 
+## 切换暂停状态并显示/隐藏暂停菜单
 func _toggle_pause() -> void:
 	var tree := get_tree()
 	tree.paused = not tree.paused
@@ -49,6 +54,7 @@ func _on_resume_pressed() -> void:
 	if pause_menu:
 		pause_menu.visible = false
 
+## 返回主菜单：先取消暂停再切场景
 func _on_main_menu_pressed() -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://scenes/ui/MainMenu.tscn")
