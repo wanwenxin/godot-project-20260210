@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "godot": {
+      "command": "node",
+      "args": [
+        "E:/godot/project/project20260210/cursor-godot-20260210/.godot/mcp_tools/godot-mcp/node_modules/godot-mcp/build/index.js"
+      ],
+      "env": {
+        "DEBUG": "true"
+      }
+    }
+  }
+}
