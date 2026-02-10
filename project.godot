@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="cursor_godot_20260210"
+run/main_scene="res://scenes/ui/MainMenu.tscn"
 config/features=PackedStringArray("4.6", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*res://scripts/core/game_manager.gd"
 
 [physics]
 

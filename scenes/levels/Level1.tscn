@@ -1,0 +1,57 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/level1.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2"]
+[ext_resource type="Script" path="res://scripts/levels/goal.gd" id="3"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/Goomba.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://scenes/items/Mushroom.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://scenes/items/Star.tscn" id="6"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(512, 32)
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(32, 64)
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1")
+player_scene = ExtResource("2")
+
+[node name="TileMap" type="TileMap" parent="."]
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(256, 160)
+
+[node name="FloorVisual" type="Polygon2D" parent="Floor"]
+polygon = PackedVector2Array(-256, -16, 256, -16, 256, 16, -256, 16)
+color = Color(0.45, 0.35, 0.25, 1)
+
+[node name="FloorCollision" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("1")
+
+[node name="PlayerStart" type="Node2D" parent="."]
+position = Vector2(64, 64)
+
+[node name="Goomba" parent="." instance=ExtResource("4")]
+position = Vector2(200, 144)
+
+[node name="Mushroom" parent="." instance=ExtResource("5")]
+position = Vector2(120, 144)
+
+[node name="Star" parent="." instance=ExtResource("6")]
+position = Vector2(300, 144)
+
+[node name="Goal" type="Area2D" parent="."]
+position = Vector2(400, 64)
+script = ExtResource("3")
+
+[node name="GoalVisual" type="Polygon2D" parent="Goal"]
+polygon = PackedVector2Array(-16, -32, 16, -32, 16, 32, -16, 32)
+color = Color(0.2, 0.8, 0.3, 1)
+
+[node name="GoalCollision" type="CollisionShape2D" parent="Goal"]
+shape = SubResource("2")
+
+[node name="MainCamera" type="Camera2D" parent="."]
+current = true
+
